@@ -468,7 +468,7 @@ scripts/config --enable CONFIG_PCI_REALLOC_ENABLE_AUTO
 scripts/config --enable CONFIG_XEN_PCIDEV_FRONTEND
 scripts/config --enable CONFIG_PCI_IOV
 scripts/config --enable CONFIG_VGA_ARB
-scripts/config --enable CONFIG_VGA_ARB_MAX_GPUS
+scripts/config --set-val CONFIG_VGA_ARB_MAX_GPUS 10
 scripts/config --enable CONFIG_HOTPLUG_PCI
 scripts/config --enable CONFIG_HOTPLUG_PCI_ACPI
 scripts/config --enable CONFIG_PCIE_DW
@@ -3030,7 +3030,6 @@ scripts/config --disable CONFIG_DRM_KMS_HELPER
 scripts/config --disable CONFIG_DRM_MIPI_DBI
 scripts/config --disable CONFIG_DRM_MIPI_DSI
 scripts/config --disable CONFIG_DRM_FBDEV_EMULATION
-scripts/config --disable CONFIG_DRM_FBDEV_OVERALLOC
 scripts/config --disable CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM
 scripts/config --disable CONFIG_DRM_LOAD_EDID_FIRMWARE
 scripts/config --disable CONFIG_DRM_DISPLAY_HELPER
@@ -3340,8 +3339,7 @@ scripts/config --disable CONFIG_USB_ANNOUNCE_NEW_DEVICES
 scripts/config --disable CONFIG_USB_DEFAULT_PERSIST
 scripts/config --disable CONFIG_USB_DYNAMIC_MINORS
 scripts/config --disable CONFIG_USB_LEDS_TRIGGER_USBPORT
-scripts/config --disable CONFIG_USB_AUTOSUSPEND_DELAY
-scripts/config --disable CONFIG_USB_DEFAULT_AUTHORIZATION_MODE
+scripts/config --set-val CONFIG_USB_AUTOSUSPEND_DELAY 0
 scripts/config --disable CONFIG_USB_MON
 scripts/config --disable CONFIG_USB_C67X00_HCD
 scripts/config --disable CONFIG_USB_XHCI_HCD
@@ -3504,7 +3502,7 @@ scripts/config --disable CONFIG_USB_ROLE_SWITCH
 scripts/config --disable CONFIG_USB_ROLES_INTEL_XHCI
 scripts/config --disable CONFIG_MMC
 scripts/config --disable CONFIG_MMC_BLOCK
-scripts/config --disable CONFIG_MMC_BLOCK_MINORS
+scripts/config --set-val CONFIG_MMC_BLOCK_MINORS 8
 scripts/config --disable CONFIG_SDIO_UART
 scripts/config --disable CONFIG_MMC_TEST
 scripts/config --disable CONFIG_MMC_CRYPTO
@@ -5138,8 +5136,6 @@ scripts/config --disable CONFIG_SECURITY_SELINUX
 scripts/config --disable CONFIG_SECURITY_SELINUX_BOOTPARAM
 scripts/config --disable CONFIG_SECURITY_SELINUX_DEVELOP
 scripts/config --disable CONFIG_SECURITY_SELINUX_AVC_STATS
-scripts/config --disable CONFIG_SECURITY_SELINUX_SIDTAB_HASH_BITS
-scripts/config --disable CONFIG_SECURITY_SELINUX_SID2STR_CACHE_SIZE
 scripts/config --disable CONFIG_SECURITY_SMACK
 scripts/config --disable CONFIG_SECURITY_SMACK_BRINGUP
 scripts/config --disable CONFIG_SECURITY_TOMOYO
@@ -5256,7 +5252,7 @@ scripts/config --disable CONFIG_MEMORY_NOTIFIER_ERROR_INJECT
 scripts/config --disable CONFIG_ARCH_HAS_DEBUG_WX
 scripts/config --disable CONFIG_SCHED_DEBUG
 scripts/config --disable CONFIG_STACKTRACE
-scripts/config --disable CONFIG_RCU_EXP_CPU_STALL_TIMEOUT
+scripts/config --set-val CONFIG_RCU_EXP_CPU_STALL_TIMEOUT 0
 scripts/config --disable CONFIG_FUNCTION_TRACER
 scripts/config --disable CONFIG_FUNCTION_GRAPH_TRACER
 scripts/config --disable CONFIG_DYNAMIC_FTRACE
@@ -5288,8 +5284,8 @@ scripts/config --disable CONFIG_SERIAL_8250_PNP
 scripts/config --disable CONFIG_SERIAL_8250_16550A_VARIANTS
 scripts/config --disable CONFIG_SERIAL_8250_PCILIB
 scripts/config --disable CONFIG_SERIAL_8250_PCI
-scripts/config --disable CONFIG_SERIAL_8250_NR_UARTS
-scripts/config --disable CONFIG_SERIAL_8250_RUNTIME_UARTS
+scripts/config --set-val CONFIG_SERIAL_8250_NR_UARTS 0
+scripts/config --set-val CONFIG_SERIAL_8250_RUNTIME_UARTS 0
 scripts/config --disable CONFIG_SERIAL_8250_EXTENDED
 scripts/config --disable CONFIG_SERIAL_8250_MANY_PORTS
 scripts/config --disable CONFIG_SERIAL_8250_SHARE_IRQ
@@ -5385,7 +5381,7 @@ scripts/config --disable CONFIG_USB_OHCI_LITTLE_ENDIAN
 scripts/config --disable CONFIG_EDAC_SUPPORT
 scripts/config --disable CONFIG_RTC_MC146818_LIB
 scripts/config --enable CONFIG_VIRTIO
-scripts/config --disable CONFIG_XEN_MEMORY_HOTPLUG_LIMIT
+scripts/config --set-val CONFIG_XEN_MEMORY_HOTPLUG_LIMIT 0
 scripts/config --disable CONFIG_XEN_XENBUS_FRONTEND
 scripts/config --disable CONFIG_XEN_AUTO_XLATE
 scripts/config --disable CONFIG_XEN_EFI
