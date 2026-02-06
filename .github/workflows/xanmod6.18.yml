@@ -70,7 +70,7 @@ jobs:
 
       - name: 下载 XanMod 内核
         run: |
-          git clone --depth=3 --branch 6.18 https://gitlab.com/xanmod/linux.git kernel
+          git clone --depth=2 --branch 6.18 https://gitlab.com/xanmod/linux.git kernel
 
 
       - name: 从仓库更新 config 配置
@@ -78,7 +78,7 @@ jobs:
           cd kernel
           cp ../config.sh .
           chmod +x config.sh
-          cp CONFIGS/x86-64/config .config
+          cp CONFIGS/x86_64/config .config
           ./config.sh
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
