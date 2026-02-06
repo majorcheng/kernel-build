@@ -70,7 +70,7 @@ jobs:
 
       - name: 下载 XanMod 内核
         run: |
-          git clone --depth=2 --branch 6.18 https://gitlab.com/xanmod/linux.git kernel
+          git clone --depth=1 --branch 6.18 https://gitlab.com/xanmod/linux.git kernel
 
 
       - name: 从仓库更新 config 配置
@@ -86,7 +86,7 @@ jobs:
       - name: 导出最终内核配置 .config
         run: |
           mkdir -p artifacts
-          cp kernel/.config artifacts/config-6.12-clang-${{ github.run_id }}
+          cp kernel/.config artifacts/config-6.18-clang-${{ github.run_id }}
 
       - name: 构建 kernel vmlinux
         run: |
@@ -130,7 +130,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: xanmod-cloud-6.12-${{ github.run_id }}
+          tag_name: xanmod-cloud-6.18-${{ github.run_id }}
           name: XanMod Cloud 内核 v3
           files: artifacts/*
           overwrite_files: true
