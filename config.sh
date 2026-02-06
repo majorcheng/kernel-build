@@ -83,6 +83,7 @@ scripts/config --disable CONFIG_CRASH_DUMP
 scripts/config --disable CONFIG_CRASH_HOTPLUG
 scripts/config --disable CONFIG_LOCKDEP_SUPPORT
 scripts/config --disable CONFIG_STACKTRACE_SUPPORT
+scripts/config --disable CONFIG_STACK_TRACER
 scripts/config --disable CONFIG_AUDIT_ARCH
 scripts/config --set-val CONFIG_NR_CPUS 8
 scripts/config --set-val CONFIG_NR_CPUS_DEFAULT 8
@@ -3025,6 +3026,7 @@ scripts/config --disable CONFIG_DVB_DUMMY_FE
 scripts/config --disable CONFIG_AGP
 scripts/config --disable CONFIG_VGA_SWITCHEROO
 scripts/config --disable CONFIG_DRM
+scripts/config --disable CONFIG_DRM_KMS_HELPER
 scripts/config --disable CONFIG_DRM_MIPI_DBI
 scripts/config --disable CONFIG_DRM_MIPI_DSI
 scripts/config --disable CONFIG_DRM_FBDEV_EMULATION
@@ -3068,6 +3070,10 @@ scripts/config --enable CONFIG_VGA
 # 保留虚拟显卡支持
 scripts/config --enable CONFIG_VIRTIO_GPU
 scripts/config --enable CONFIG_VIRTIO_GPU_KMS
+# 禁用不必要的显卡支持
+scripts/config --disable CONFIG_FB_NVIDIA
+scripts/config --disable CONFIG_FB_RADEON
+scripts/config --disable CONFIG_FB_MATROX
 # 禁用背光和LCD设备支持
 scripts/config --disable CONFIG_LCD_CLASS_DEVICE
 scripts/config --disable CONFIG_LCD_L4F00242T03
