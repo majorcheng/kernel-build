@@ -3,6 +3,7 @@ set -e
 # 批量修改
 scripts/config --enable CONFIG_GENERIC_CPU
 scripts/config --set-val CONFIG_X86_64_VERSION 2
+scripts/config --set-str CONFIG_LOCALVERSION "-x64v2"
 scripts/config --disable CONFIG_USELIB
 scripts/config --disable CONFIG_AUDIT
 scripts/config --disable CONFIG_AUDITSYSCALL
