@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: 内核构建 6.18
+name: 内核构建 6.18 v2
 
 # Controls when the workflow will run
 
@@ -76,10 +76,10 @@ jobs:
       - name: 从仓库更新 config 配置
         run:  |
           cd kernel
-          cp ../config.sh .
-          chmod +x config.sh
+          cp ../config.v2.sh .
+          chmod +x config.v2.sh
           cp CONFIGS/x86_64/config .config
-          ./config.sh
+          ./config.v2.sh
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
           
