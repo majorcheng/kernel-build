@@ -3030,6 +3030,7 @@ scripts/config --disable CONFIG_DRM_KMS_HELPER
 scripts/config --disable CONFIG_DRM_MIPI_DBI
 scripts/config --disable CONFIG_DRM_MIPI_DSI
 scripts/config --disable CONFIG_DRM_FBDEV_EMULATION
+scripts/config --disable CONFIG_DRM_FBDEV_OVERALLOC
 scripts/config --disable CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM
 scripts/config --disable CONFIG_DRM_LOAD_EDID_FIRMWARE
 scripts/config --disable CONFIG_DRM_DISPLAY_HELPER
@@ -3340,6 +3341,7 @@ scripts/config --disable CONFIG_USB_DEFAULT_PERSIST
 scripts/config --disable CONFIG_USB_DYNAMIC_MINORS
 scripts/config --disable CONFIG_USB_LEDS_TRIGGER_USBPORT
 scripts/config --set-val CONFIG_USB_AUTOSUSPEND_DELAY 0
+scripts/config --disable CONFIG_USB_DEFAULT_AUTHORIZATION_MODE
 scripts/config --disable CONFIG_USB_MON
 scripts/config --disable CONFIG_USB_C67X00_HCD
 scripts/config --disable CONFIG_USB_XHCI_HCD
@@ -5050,7 +5052,7 @@ scripts/config --disable CONFIG_DPLL
 scripts/config --disable CONFIG_REISERFS_FS
 scripts/config --disable CONFIG_JFS_FS
 scripts/config --disable CONFIG_F2FS_FS
-scripts/config --disable CONFIG_ISO9660_FS
+scripts/config --enable CONFIG_ISO9660_FS
 scripts/config --disable CONFIG_UDF_FS
 scripts/config --disable CONFIG_BFS_FS
 scripts/config --disable CONFIG_EFS_FS
@@ -5136,6 +5138,8 @@ scripts/config --disable CONFIG_SECURITY_SELINUX
 scripts/config --disable CONFIG_SECURITY_SELINUX_BOOTPARAM
 scripts/config --disable CONFIG_SECURITY_SELINUX_DEVELOP
 scripts/config --disable CONFIG_SECURITY_SELINUX_AVC_STATS
+scripts/config --disable CONFIG_SECURITY_SELINUX_SIDTAB_HASH_BITS
+scripts/config --disable CONFIG_SECURITY_SELINUX_SID2STR_CACHE_SIZE
 scripts/config --disable CONFIG_SECURITY_SMACK
 scripts/config --disable CONFIG_SECURITY_SMACK_BRINGUP
 scripts/config --disable CONFIG_SECURITY_TOMOYO
@@ -5292,7 +5296,7 @@ scripts/config --disable CONFIG_SERIAL_8250_SHARE_IRQ
 scripts/config --disable CONFIG_SERIAL_8250_RSA
 scripts/config --disable CONFIG_SERIAL_MAX310X
 scripts/config --disable CONFIG_SERIAL_DEV_CTRL_TTYPORT
-scripts/config --disable CONFIG_VIRTIO_CONSOLE
+scripts/config --enable CONFIG_VIRTIO_CONSOLE
 scripts/config --disable CONFIG_HW_RANDOM_TIMERIOMEM
 scripts/config --disable CONFIG_HW_RANDOM_BA431
 scripts/config --disable CONFIG_HW_RANDOM_VIA
@@ -5553,7 +5557,7 @@ scripts/config --disable CONFIG_OCFS2_FS_USERSPACE_CLUSTER
 scripts/config --disable CONFIG_OCFS2_FS_STATS
 scripts/config --disable CONFIG_OCFS2_DEBUG_MASKLOG
 scripts/config --disable CONFIG_OCFS2_DEBUG_FS
-scripts/config --disable CONFIG_BTRFS_FS
+scripts/config --enable CONFIG_BTRFS_FS
 scripts/config --disable CONFIG_BTRFS_FS_RUN_SANITY_TESTS
 scripts/config --disable CONFIG_BTRFS_DEBUG
 scripts/config --disable CONFIG_BTRFS_ASSERT
