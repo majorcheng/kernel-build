@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: 内核构建 6.18
+name: 6.18-内核构建
 
 # Controls when the workflow will run
 
@@ -14,6 +14,11 @@ jobs:
     env:
       DEB_BUILD_OPTIONS: nocheck
       KERNEL_LOCALVERSION: -cloud
+      KBUILD_BUILD_USER: actions-kernel
+      KBUILD_BUILD_HOST: github-actions
+      LLVM_ARGS: LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld
+      KCFLAGS_OPT: -march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -fomit-frame-pointer -Wno-error
+      LDFLAGS_OPT: -Wl,--gc-sections -Wl,-O1
 
     steps:
       - name: Checkout
@@ -42,11 +47,11 @@ jobs:
       - name: 安装 LLVM/Clang
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget lsb-release gnupg
+          sudo apt-get install -y --no-install-recommends wget lsb-release gnupg ca-certificates
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
-          sudo ./llvm.sh 21 all
-          echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
+          sudo ./llvm.sh 22 all
+          echo "PATH=/usr/lib/llvm-22/bin:$PATH" >> $GITHUB_ENV
 
       - name: 安装依赖 dependencies
         env:
@@ -56,8 +61,7 @@ jobs:
           sudo apt-get autoremove -y --purge
           sudo apt-get clean
           sudo -E apt-get -y update
-          sudo apt-get update
-          sudo apt-get install -y \
+          sudo apt-get install -y --no-install-recommends \
             build-essential bc bison flex \
             libssl-dev libelf-dev libncurses-dev \
             libdw-dev debhelper debhelper-compat dpkg-dev devscripts \
@@ -80,7 +84,7 @@ jobs:
           chmod +x config.sh
           cp CONFIGS/x86_64/config .config
           ./config.sh
-          make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
+          make ${LLVM_ARGS} olddefconfig
 
           
       - name: 导出最终内核配置 .config
@@ -91,28 +95,28 @@ jobs:
       - name: 构建 kernel vmlinux
         run: |
           cd kernel
-          make -j$(nproc) \
-            LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+          make -j$(nproc) ${LLVM_ARGS} \
             vmlinux modules_prepare \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+            KCFLAGS="${KCFLAGS_OPT}" \
+            LDFLAGS="${LDFLAGS_OPT}"
 
       - name: 构建内核模块 kernel modules_prepare
         run: |
           cd kernel
-          make -j$(nproc) \
-            LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+          make -j$(nproc) ${LLVM_ARGS} \
             modules_prepare \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+            KCFLAGS="${KCFLAGS_OPT}" \
+            LDFLAGS="${LDFLAGS_OPT}"
 
       - name: 构建内核软件包 kernel deb packages
         run: |
           cd kernel
           KDEB_COMPRESS=xz \
-          make -j$(nproc) \
-            LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+          make -j$(nproc) ${LLVM_ARGS} \
             bindeb-pkg \
             LOCALVERSION=${KERNEL_LOCALVERSION} \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+            KCFLAGS="${KCFLAGS_OPT}" \
+            LDFLAGS="${LDFLAGS_OPT}"
 
       - name: 查看文件目录
         run: |
@@ -125,14 +129,33 @@ jobs:
           mv linux-image-*.deb artifacts/
           mv linux-headers-*.deb artifacts/
 
+      - name: 生成 Release 说明
+        run: |
+          cat <<EOF > release_body.txt
+
+          构建信息：
+          - Kernel: Linux 6.18 XanMod
+          - LLVM/Clang: 22
+          - 架构优化: x86-64-v3
+          - 编译优化: O3 + Full LTO + gc-sections
+
+          构建参数：
+          - KCFLAGS: ${KCFLAGS_OPT}
+          - LDFLAGS: ${LDFLAGS_OPT}
+
+          用途：
+          - VPS / 云服务器
+          EOF
+
       - name: 发布
         uses: softprops/action-gh-release@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: xanmod-cloud-6.18-${{ github.run_id }}
-          name: XanMod Cloud 内核 v3
+          name: XanMod Cloud 6.18-内核 v3
           files: artifacts/*
+          body_path: release_body.txt
           overwrite_files: true
 
       - name: 删除以往工作流
@@ -140,7 +163,7 @@ jobs:
         uses: Mattraks/delete-workflow-runs@main
         with:
           retain_days: 30
-          keep_minimum_runs: 5
+          keep_minimum_runs: 10
 
       - name: 删除旧的发布文件
         if: always()
