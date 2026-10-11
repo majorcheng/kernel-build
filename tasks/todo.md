@@ -7,6 +7,7 @@
 - 保留本地 Release 清理步骤；上游对应的统一 `clean-releases.yml` 不在本次范围内。
 - 在 `config.sh` 中恢复云服务器需要的 perf/tracing/BPF、容器、namespace、KVM、BBR/fq、XDP 和 netfilter 能力。
 - 保留 systemd 需要的 `autofs4` 内核模块。
+- 保留 AWS EC2 的 ENA、NVMe 和 Xen 前端驱动，确保 Nitro 与 Xen 实例的启动和网络路径。
 - 校验 YAML、脚本引用、工作区差异和 Git 状态。
 
 ## 完成标准
@@ -19,6 +20,7 @@
 
 - 上游目标分支：`0d4dacde1746…`；目标文件最近相关提交：`4aa828452351…`。
 - PyYAML 解析通过，13 个 `run` 块均通过 `bash -n`，`git diff --check` 通过。
-- 新增配置块的 220 个符号均存在于上游 `config-6.x.sh`；Linux v6.18 原生 `scripts/config` 干跑通过，XanMod 6.18 基线的关键目标值检查通过。
+- 新增配置块的 238 个符号均存在于上游 `config-6.x.sh`；Linux v6.18 原生 `scripts/config` 干跑通过，XanMod 6.18 基线的关键目标值检查通过。
 - 未执行完整 `make olddefconfig` 或内核编译；当前验证覆盖脚本语法、命令执行和目标值写入。
 - `CONFIG_AUTOFS_FS=m` 的脚本执行结果已单独核对。
+- AWS 基线检查覆盖 `CONFIG_ENA_ETHERNET=y`、NVMe 两项 `y` 以及 Xen 前端依赖。

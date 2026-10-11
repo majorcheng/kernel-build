@@ -5730,6 +5730,25 @@ scripts/config --module CONFIG_MACVLAN
 scripts/config --module CONFIG_IPVLAN
 scripts/config --module CONFIG_VXLAN
 
+# AWS EC2 启动、根盘和网络所需驱动
+scripts/config --enable CONFIG_HYPERVISOR_GUEST
+scripts/config --enable CONFIG_PARAVIRT
+scripts/config --enable CONFIG_PARAVIRT_XXL
+scripts/config --enable CONFIG_NET_VENDOR_AMAZON
+scripts/config --enable CONFIG_PTP_1588_CLOCK_OPTIONAL
+scripts/config --enable CONFIG_ENA_ETHERNET
+scripts/config --enable CONFIG_NVME_CORE
+scripts/config --enable CONFIG_BLK_DEV_NVME
+scripts/config --enable CONFIG_XEN
+scripts/config --enable CONFIG_XEN_PV
+scripts/config --enable CONFIG_XEN_PVHVM
+scripts/config --enable CONFIG_XEN_PVHVM_GUEST
+scripts/config --enable CONFIG_XEN_XENBUS_FRONTEND
+scripts/config --enable CONFIG_XEN_BLKDEV_FRONTEND
+scripts/config --enable CONFIG_XEN_NETDEV_FRONTEND
+scripts/config --enable CONFIG_XEN_PCIDEV_FRONTEND
+scripts/config --enable CONFIG_SWIOTLB_XEN
+
 # KVM 主机和常见虚拟机能力
 scripts/config --enable CONFIG_VIRTUALIZATION
 scripts/config --enable CONFIG_KVM_COMMON
