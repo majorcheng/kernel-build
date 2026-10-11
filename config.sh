@@ -5721,6 +5721,8 @@ scripts/config --enable CONFIG_USER_NS
 scripts/config --enable CONFIG_PID_NS
 scripts/config --enable CONFIG_NET_NS
 scripts/config --enable CONFIG_OVERLAY_FS
+# systemd 使用的 autofs4 模块
+scripts/config --module CONFIG_AUTOFS_FS
 scripts/config --enable CONFIG_TUN
 scripts/config --module CONFIG_TAP
 scripts/config --module CONFIG_VETH
